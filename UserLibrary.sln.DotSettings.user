@@ -1,8 +1,29 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d0166816_002D3d51_002D41ff_002Dbf2c_002Db38f7783a239/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="DomainTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=098b4328_002Ddcb6_002D4ad9_002D924f_002D2b4ab38c1baf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ResetWhenUserCannotApprove_NegativeTest #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.ApplicantTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.WorkflowTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.WorkflowStepsTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1804ec15_002D4ee8_002D43b3_002Dad71_002D1800f952f51b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ResetWhenUserCannotApprove_NegativeTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.ApplicantTests.ResetWhenUserCannotApprove_NegativeTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c0d4bc05_002Daa0a_002D42db_002Db6a8_002D73e1f797804b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ResetWhenUserCannotApprove_NegativeTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.ApplicantTests.ResetWhenUserCannotApprove_NegativeTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d0166816_002D3d51_002D41ff_002Dbf2c_002Db38f7783a239/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="DomainTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.DomainTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::F992397D-6896-443A-8677-271AD8CEAFBD::net7.0::Application.Tests.ApplicationTests.AddWorkflowStepWithUser_PositiveTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::F992397D-6896-443A-8677-271AD8CEAFBD::net7.0::Application.Tests.ApplicationTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.WorkflowStepsTests.IsCanApproveWithUser_PositiveTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.WorkflowStepsTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.WorkflowTests.AddStepWithUser_PositiveTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2E71DCDB-B06A-42E1-8A08-B73DE2A7C585::net7.0::Domain.Tests.ApplicantTests.ResetWhenUserCannotApprove_NegativeTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

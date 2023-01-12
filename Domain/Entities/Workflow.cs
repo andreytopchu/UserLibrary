@@ -37,6 +37,11 @@ public class Workflow
 
     public Workflow(ICollection<WorkflowStep> steps)
     {
+        if (steps.Count == 0)
+        {
+            throw new ArgumentException("Steps should not be empty", nameof(steps));
+        }
+
         Steps = steps;
         Logs = new List<StatusLogItem>();
         IsCompleted = false;
@@ -61,10 +66,10 @@ public class Workflow
         {
             return Errors.WorkflowStep.ForbiddenForUser;
         }
-
-        CurrentStepNumber++;
+        
         Logs.Add(new StatusLogItem(user, $"Step {currentStep.StepN} approved"));
         IsCompleted = currentStep.StepN == Steps.Max(i => i.StepN);
+        CurrentStepNumber = IsCompleted ? CurrentStepNumber : CurrentStepNumber + 1;
         return Task.CompletedTask;
     }
 

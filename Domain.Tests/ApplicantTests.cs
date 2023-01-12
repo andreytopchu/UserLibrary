@@ -4,7 +4,7 @@ using Domain.Entities.Enum;
 
 namespace Domain.Tests;
 
-public class DomainTests
+public class ApplicantTests
 {
     private readonly List<User> _users = new();
     private readonly List<Role> _roles = new();
@@ -33,12 +33,12 @@ public class DomainTests
 
         for (var i = 0; i < _users.Count; i++)
         {
-            _steps.Add(new WorkflowStep(_users[i], i));
+            _steps.Add(new WorkflowStep(_users[i], i + 1));
         }
 
         for (var i = 0; i < _roles.Count; i++)
         {
-            _steps.Add(new WorkflowStep(_roles[i], _users.Count + i));
+            _steps.Add(new WorkflowStep(_roles[i], _users.Count + i + 1));
         }
 
         _applicantWorkflow = new Workflow(_steps);
@@ -48,7 +48,7 @@ public class DomainTests
     }
 
     [Test]
-    public void ApprovedApplicant_PositiveTest()
+    public void Approved_PositiveTest()
     {
         foreach (var user in _users)
         {
@@ -61,6 +61,18 @@ public class DomainTests
         }
 
         Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.Approved));
+    }
+
+    [Test]
+    public void TryApproveWhenUserCannotApprove_NegativeTest()
+    {
+        var approveResult = _applicant.Approve(_users[1]);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(approveResult.IsError, Is.True);
+            Assert.That(approveResult.FirstError, Is.EqualTo(Errors.WorkflowStep.ForbiddenForUser));
+        });
     }
 
     [Test]
@@ -88,38 +100,6 @@ public class DomainTests
     }
 
     [Test]
-    public void AddStepInWorkflowAfterApproved_PositiveTest()
-    {
-        foreach (var user in _users)
-        {
-            _applicant.Approve(user);
-        }
-
-        foreach (var role in _roles)
-        {
-            _applicant.Approve(_users.First(x => x.Role.Equals(role)));
-        }
-
-        Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.Approved));
-
-        _applicantWorkflow.AddStep(_users.First());
-
-        Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.InProgress));
-    }
-
-    [Test]
-    public void RejectedApplicant_PositiveTest()
-    {
-        var result = _applicant.Reject(_users.First());
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result.IsError, Is.False);
-            Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.Rejected));
-        });
-    }
-
-    [Test]
     public void ApprovedAfterRejectedApplicant_NegativeTest()
     {
         var rejectedResult = _applicant.Reject(_users.First());
@@ -140,20 +120,95 @@ public class DomainTests
     }
 
     [Test]
+    public void AddStepInWorkflowAfterApproved_PositiveTest()
+    {
+        foreach (var user in _users)
+        {
+            _applicant.Approve(user);
+        }
+
+        foreach (var role in _roles)
+        {
+            _applicant.Approve(_users.First(x => x.Role.Equals(role)));
+        }
+
+        Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.Approved));
+
+        _applicantWorkflow.AddStep(_users.First());
+
+        Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.InProgress));
+    }
+
+    [Test]
+    public void Rejected_PositiveTest()
+    {
+        var result = _applicant.Reject(_users.First());
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.IsError, Is.False);
+            Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.Rejected));
+        });
+    }
+
+    [Test]
+    public void RejectedWhenUserCannotApprove_NegativeTest()
+    {
+        var result = _applicant.Reject(_users[2]);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.IsError, Is.True);
+            Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.InProgress));
+            Assert.That(result.FirstError, Is.EqualTo(Errors.WorkflowStep.ForbiddenForUser));
+        });
+    }
+
+    [Test]
     public void ResetApprovedUser()
     {
-        Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(0));
+        Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(1));
 
         foreach (var user in _users)
         {
             _applicant.Approve(user);
         }
 
-        Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(_users.Count));
+        Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(_users.Count + 1));
 
         _applicantWorkflow.Reset(_users.First());
 
-        Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(0));
+        Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void ResetWhenUserCannotApprove_NegativeTest()
+    {
+        Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(1));
+
+        foreach (var user in _users)
+        {
+            _applicant.Approve(user);
+        }
+
+        foreach (var role in _roles)
+        {
+            _applicant.Approve(_users.First(x => x.Role.Equals(role)));
+        }
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(_users.Count + _roles.Count));
+            Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.Approved));
+        });
+
+        _applicantWorkflow.Reset(_users.First());
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(_applicantWorkflow.CurrentStepNumber, Is.EqualTo(_users.Count + _roles.Count));
+            Assert.That(_applicant.Status, Is.EqualTo(ApplicantStatus.Approved));
+        });
     }
 
     [Test]
